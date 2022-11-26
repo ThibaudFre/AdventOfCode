@@ -1,47 +1,54 @@
-import fs from 'fs'
-import path from 'path'
+import fs from 'node:fs'
+import path from 'node:path'
 
 export default () =>{
     const deeps = fs.readFileSync(path.join(process.cwd(), './years/2016/in/day1.txt'), { encoding: 'utf8' })
                  .split(', ');
 
     const orientSanta = (mooves) => {
-        const test = ["R8", "R10", "R4", "R8","R8","R4","R10", "R8"]
+        //you can uncomment the "const test" and change in the for loop "mooves" by "test" to test it with less mooves.
+        //const test = ["R8", "R10", "R4", "R8","R8","R4","R10", "R8"]
         let orientationSanta = "N";
         let [finalX, finalY] = [0,0];
-
+        //array of cells already stepped on it;
         let visited = [];
 
+        //some actions to do for each moove of santa
         for(let moove of mooves) {
+            //for each loop we push the actual cell to compare with later...
             visited.push([finalX, finalY])
+
             const direction = moove.split('')[0]
             const stringNumber = moove.slice(1);
             console.log(typeof direction," ", typeof stringNumber);
             const number = parseInt(stringNumber)
             //Santa start the moove oriented...
-            console.log(`santa moove from the ${orientationSanta} turn to the ${direction} and step forward to ${number} cases in direction of the`);
             if(orientationSanta === "N") {
+                //if the direction given is R (right) so...
                if(direction === "R"){
+                    //I add the number of steps for the x coordonate to add where is santa on x coordonate;
                     finalX += number;
                     orientationSanta = "E";
                     console.log(`${orientationSanta}`)
+                //if the direction given is L (left) so...
                } else if(direction === "L") {
+                    //I substract the number of steps for the x coordonate to add where is santa on x coordonate;
                     finalX -= number;
                     orientationSanta = "W";
                     console.log(`${orientationSanta}`)
                }
-            //Santa start the moove oriented... 
             } else if(orientationSanta === "E") {
                if(direction === "R"){
+                    //I substract the number of steps for the x coordonate to add where is santa on y coordonate;
                     finalY -= number;
                     orientationSanta = "S"
                     console.log(`${orientationSanta}`)
                } else if(direction === "L") {
+                    //I add the number of steps for the y coordonate to add where is santa on y coordonate;
                     finalY += number;
                     orientationSanta ="N";
                     console.log(`${orientationSanta}`)
-               }
-            //Santa start the moove oriented...     
+               }    
             } else if(orientationSanta === "S") {
                if(direction === "R"){
                     finalX -= number;
@@ -52,7 +59,6 @@ export default () =>{
                     orientationSanta = "E"
                     console.log(`${orientationSanta}`)
                }
-            //Santa start the moove oriented... 
             }else if(orientationSanta === "W") {
                if(direction === "R"){
                     finalY += number;
@@ -64,17 +70,17 @@ export default () =>{
                     console.log(`${orientationSanta}`)
                } 
             }
-
+            //I want to compare with the last cell visited
             const lastVisited = visited[visited.length-1];
             const [lastX, lastY] = lastVisited;
-            console.log(`last visited is: ${lastVisited} and last x is: ${lastX} and last Y is ${lastY}`);
-
+            //function to verify if the cell stepping on actually  was already visited in the "visited" array
             const isVisitedTwice = (localisation) => {
                 const [locX, locY] = localisation;
                 let result = false;
 
                 visited.map((pastLoc) => {
                     const [x, y] = pastLoc;
+                    //if x === locX && y === locY so it is the second time that santa walk on this cell. VICTORY !
                     if(x === locX && y === locY) {
                         result = true;
                     }
@@ -82,7 +88,9 @@ export default () =>{
 
                 return result;
             }
-
+            //here is tricky conditional way... 
+                //I want to push in the visited array all the steps(in cordonate [x,y]) between the last moove of santa and the actual one.
+                //and for all the steps I will check if santa already passed on with isVisitedTwice function... 
             if(lastX < finalX) {
                 for(let i = lastX + 1; i < finalX; i++) {
                     if (isVisitedTwice([i,lastY])) {
@@ -113,10 +121,6 @@ export default () =>{
                     visited.push([lastX,i]);
                 }
             }
-
-            console.log(`visited is now: ${visited}`);
-            console.log(`now santa is at: \n final[${finalX},${finalY}]\n------------------------------------\n`)
-
         } 
     } 
 
