@@ -1,51 +1,37 @@
-/*
-    The captcha requires you to review a sequence of digits (your puzzle input) and find the sum of all digits that match the next
-    digit in the list. The list is circular, so the digit after the last digit is the first digit in the list.
-*/
-
 import fs from 'node:fs'
 import path from 'node:path'
 
+/*
+    Link here: https://adventofcode.com/2017/day/1
+    You're standing in a room with "digitization quarantine" written in LEDs along one wall. 
+    The only door is locked, but it includes a small interface. "Restricted Area - Strictly No Digitized Users Allowed."
+
+    It goes on to explain that you may only leave by solving a captcha to prove you're not a human. Apparently, you only get one millisecond to solve the captcha:
+    too fast for a normal human, but it feels like hours to you.
+
+    The captcha requires you to review a sequence of digits (your puzzle input) and find the sum of all digits that match the next digit in the list.
+    The list is circular, so the digit after the last digit is the first digit in the list.
+
+    For example:
+
+    1122 produces a sum of 3 (1 + 2) because the first digit (1) matches the second digit and the third digit (2) matches the fourth digit.
+    1111 produces 4 because each digit (all 1) matches the next.
+    1234 produces 0 because no digit matches the next.
+    91212129 produces 9 because the only digit that matches the next one is the last digit, 9.
+    What is the solution to your captcha?
+*/
+
 export default () =>{
     const deeps = fs.readFileSync(path.join(process.cwd(), './years/2017/in/day1.txt'), { encoding: 'utf8' })
-                 .split('')
-
-    const findCaptcha = (numbers) => {
-        //you can uncomment the "const test" and change in the "toCheck variable" "numbers.map()" by "test.map()" to test it with less numbers.
-        //const test = ["9", "1", "2", "1","2", "1", "2", "9"]
-        //const test = ["1", "2", "3", "4"];
-        //const test = ["1", "1", "1", "1"];
-        //const test = ["1", "1", "2", "2"];
-        //I copy an aray of numbers to check
-        let toCheck = numbers.map(numb => numb);
-        //my array of numbers that I need to add Value each other later to return the result
-        const toAdd = [];
-        //the numb I need to check to match with the same number for each loop in the while
-        let toSearch;
-        //if at the first turn the first number is the last too. remember the numbers list is circular.
-        if (toCheck[0] === toCheck[toCheck.length-1]) {
-            toAdd.push(parseInt(toCheck[0]))
-        }
-
-        while(toCheck.length > 0){
-            //I save the first index to compare it after...
-            toSearch = toCheck[0];
-            //I delete the first index from the "toCheck" array
-            toCheck.shift();
-            //I compare the last first index with the newOne if they are the same
-            if (toCheck[0] === toSearch) {
-                toAdd.push(parseInt(toCheck[0]))
-            }
-        }
-
-        //if to Add is empty return 0 or return the add of the numbers founded
-        const result = toAdd.length > 0 ? toAdd.reduce((a,b) => a + b) : 0;
-
-        return result;
-    }
-
+                 .split('').map(nb => parseInt(nb));
         
-    return findCaptcha(deeps);
+    return deeps.reduce((acc, curr, index) => {
+        if(curr === deeps[index +1] || index === deeps.length -1 && curr === deeps[0]) {
+            acc += curr;
+        }
+
+        return acc;
+    }, 0)
 }
 
 
