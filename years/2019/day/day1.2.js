@@ -2,6 +2,10 @@ import fs from "node:fs"
 import path from "node:path";
 
 /*
+    Link here: https://adventofcode.com/2019/day/1
+    During the second Go / No Go poll, the Elf in charge of the Rocket Equation Double-Checker stops the launch sequence.
+    Apparently, you forgot to include additional fuel for the fuel you just added.
+    
     Fuel itself requires fuel just like a module - take its mass, divide by three, round down, and subtract 2. However,
     that fuel also requires fuel, and that fuel requires fuel, and so on. Any mass that would require negative fuel should instead be treated as if it requires zero fuel;
     the remaining mass, if any, is instead handled by wishing really hard, which has no mass and is outside the scope of this calculation.
@@ -22,14 +26,14 @@ import path from "node:path";
 */
 
 export default () => {
-    const deeps = fs.readFileSync(path.join(process.cwd(), '/years/2019/in/day1.txt'), {encoding: "utf8"})
+    const masses = fs.readFileSync(path.join(process.cwd(), '/years/2019/in/day1.txt'), {encoding: "utf8"})
         .split('\r\n')
         .map(nb => parseInt(nb))
 
-        //you can uncomment the "const test" and change "deeps" by "test" to test it with less numbers.
+        //you can uncomment the "const test" and change "masses" by "test" to test it with less numbers.
         //const test = [14, 1969, 100756]
 
-        return deeps.reduce((acc,curr) => {
+        return masses.reduce((acc,curr) => {
             //my array containing all the mass calculated ny calculateFuel(curr) method
             const totalFuel = [];
             //my method to calculate the Fuel needing depending of the mass while it is over 0
@@ -44,7 +48,7 @@ export default () => {
             }
             
             calculateFuel(curr);
-            //I return to the accumulator of the deeps.reduce the sum of all the totalFuel numbers
+            //I return to the accumulator of the masses.reduce the sum of all the totalFuel numbers
             return acc += totalFuel.reduce((a,b) => a + b);
         },0)
 

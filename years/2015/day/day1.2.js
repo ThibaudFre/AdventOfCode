@@ -15,7 +15,7 @@ import path from 'node:path'
 */
 
 export default () =>{
-    const deeps = fs.readFileSync(path.join(process.cwd(), './years/2015/in/day1.txt'), { encoding: 'utf8' })
+    const directions = fs.readFileSync(path.join(process.cwd(), './years/2015/in/day1.txt'), { encoding: 'utf8' })
                  .split('')
 
     const findFloor = (data) => {
@@ -33,5 +33,5 @@ export default () =>{
         }
     }
 
-    return findFloor(deeps);
+    return findFloor(directions);
 }

@@ -11,7 +11,7 @@ import path from 'node:path'
 */
 
 export default () =>{
-    const deeps = fs.readFileSync(path.join(process.cwd(), './years/2016/in/day1.txt'), { encoding: 'utf8' })
+    const coordonates = fs.readFileSync(path.join(process.cwd(), './years/2016/in/day1.txt'), { encoding: 'utf8' })
                  .split(', ');
 
     const orientSanta = (mooves) => {
@@ -134,5 +134,5 @@ export default () =>{
     } 
 
 
-    return orientSanta(deeps);
+    return orientSanta(coordonates);
 }

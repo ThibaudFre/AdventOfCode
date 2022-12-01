@@ -29,29 +29,35 @@ import path from "node:path";
 */
 
 export default () => {
-    const deeps = fs.readFileSync(path.join(process.cwd(), './years/2018/in/day1.txt'), {encoding: "utf8"})
+    const frequencies = fs.readFileSync(path.join(process.cwd(), './years/2018/in/day1.txt'), {encoding: "utf8"})
         .split("\r\n")
         .map(nb => parseInt(nb, 10))
 
+    //you can uncomment the "const test" and change "frequencies" by "test" to test it with less numbers.
+
     //const test = [1, -1];
     //const test = [3, 3, 4, -2, -4];
-    const test = [-6, 3, 8, 5, -6];
+    //const test = [-6, 3, 8, 5, -6];
     //const test = [7, 7, -2, -7, -4];
-
+    //I save the last Frequencies in this array
     const lastFrequencies = [0];
     let result;
 
     const findFreq = () => {    
-        deeps.reduce((a,b) => {
-            
+        frequencies.reduce((a,b) => {
+            //if the result was not already  founded and the array lestFrenquencies contained already the same Frequencie (a+b) so...
             if(result === undefined && lastFrequencies.includes(a + b)){
-                console.log("result founded is: ", a + b)
+                //save in the result let the Frequencie founded twice
                 result = a + b
             }
+            //if not push the new Frequencie (a+b) in the lastFrequencies array
             lastFrequencies.push( a + b)
+            //return a+b as next curr value/ Frequencie
             return a + b;
+            //as initial Value for reduce use the last Frequencie founded so saved in the lastFrequencies array
         },lastFrequencies[lastFrequencies.length - 1]);
 
+        //while result is not find reuse findFreq() to do recursivity... over and over
         if(result === undefined) {
             findFreq();
         }
