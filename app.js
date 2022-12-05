@@ -25,6 +25,8 @@ import dayfunction_1_2_2019 from "./years/2019/day/day1.2.js";
 //2020
 import dayfunction_1_2020 from "./years/2020/day/day1.js";
 import dayfunction_1_2_2020 from "./years/2020/day/day1.2.js";
+import dayfunction_2_2020 from "./years/2020/day/day2.js";
+import dayfunction_2_2_2020 from "./years/2020/day/day2.2.js";
 //2021
 import dayfunction_1_2021 from "./years/2021/day/day1.js";
 import dayfunction_1_2_2021 from "./years/2021/day/day1.2.js";
@@ -37,4 +39,4 @@ import dayfunction_2_2022 from "./years/2022/day/day2.js";
 import dayfunction_2_2_2022 from "./years/2022/day/day2.2.js";
 
 
-console.log(dayfunction_2_2_2021());
+console.log(dayfunction_2_2_2020());

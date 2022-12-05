@@ -46,12 +46,15 @@ export default () => {
         "forward 2",
     ]*/
 
+    //You can uncomment the const "test"  above and "test" below to test the function with less directions
     fs.readFileSync(path.join(process.cwd(), "./years/2021/in/day2.txt"), {encoding: "utf8"})
         .split("\r\n")
         /*test*/.map(direction => {
+            //I save the action here (forward/down/up)
             const action = direction.split(" ")[0];
+            //I save the number indicated next to the action
             const numb = parseInt(direction.split(" ")[1]);
-
+            //here is the conditions. The result is depending on wich action is given
             if (action === "forward") {
                 horizontal += numb
             } else if (action === "down") {
@@ -60,7 +63,7 @@ export default () => {
                 depth -= numb
             }
         })
-        
+
     return horizontal * depth;
 
 }

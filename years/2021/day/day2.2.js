@@ -43,12 +43,13 @@ export default () => {
         "forward 2",
     ]*/
 
+    //You can uncomment the const "test"  above and "test" below to test the function with less directions
     fs.readFileSync(path.join(process.cwd(), "./years/2021/in/day2.txt"), {encoding: "utf8"})
         .split("\r\n")
         /*test*/.map(direction => {
             const action = direction.split(" ")[0];
             const numb = parseInt(direction.split(" ")[1]);
-
+            //same thing than in day2.js on the resulting operation change
             if (action === "forward") {
                 horizontal += numb
                 depth += aim * numb
@@ -58,6 +59,6 @@ export default () => {
                 aim -= numb
             }
         })
-        
+
     return horizontal * depth;
 }
