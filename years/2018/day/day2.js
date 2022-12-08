@@ -1,6 +1,5 @@
 import fs from "node:fs";
 import path from "node:path";
-import { isWeakMap } from "node:util/types";
 
 /*
     Link here: https://adventofcode.com/2018/day/2
@@ -35,10 +34,13 @@ import { isWeakMap } from "node:util/types";
     and three of them contain a letter which appears exactly three times.
     Multiplying these together produces a checksum of 4 * 3 = 12.
 
-What is the checksum for your list of box IDs?
+    What is the checksum for your list of box IDs?
 */
 
 export default () => {
+
+    let threeLetters = 0;
+    let twoLetters = 0;
     const test = [
         "abcdef",
         "bababc",
@@ -49,25 +51,57 @@ export default () => {
         "ababab"
     ]
     
-    const testFunc = (value, key, map) => {
-        console.log(`key is ${key} value is: ${value} and map is: ${map}`)
-    }
 
-    /*return */fs.readFileSync(path.join(process.cwd(), "./years/2018/in/day2.txt"), {encoding: "utf8"})
+
+    fs.readFileSync(path.join(process.cwd(), "./years/2018/in/day2.txt"), {encoding: "utf8"})
         .split('\r\n')
-        test.map(id => {
-            console.log(`\n id is ${id}`)
+        /*test*/.map(id => {
+            //I split to keep an array of the letters of the Id
             const letters = id.split('')
+            //I create a Map object to save all the letters of my Id
             const lettersFounded = new Map
+            //I put here booleans to say if the Id contains 2 times the same letter or three times
+            let isThreeLetters = false
+            let isTwoLetters = false
+
             letters.map(letter => {
+                //now I check letter by letter if
+                //my Map does it contains already the letter
                 if(lettersFounded.has(letter)) {
+                    /*
+                        in this case I increment on the value of this key/letter so I catch the actual value of it with get method add one
+                        and set it with set method of Map object.
+                     */
                     lettersFounded.set(letter, (lettersFounded.get(letter) + 1))
+                //If the map doesn't contain already the letter I set it with 1;
                 } else {
                     lettersFounded.set(letter, 1)
                 }
-            //console.log(`lettersFounded ${letter} are: ${lettersFounded.get(letter)}`)
             })
-            lettersFounded.forEach(testFunc)
-            
+
+            //so now tha all the letter of the Id has been counted and save in the Map objec, I will browse each letter.
+            lettersFounded.forEach((value, key, map) => {
+                //if the key value is 3
+                if(value === 3) {
+                    isThreeLetters = true;
+                //if the key value is 2
+                } else if (value === 2) {
+                    isTwoLetters = true;
+                }
+            })
+
+            /*
+                now I have my booleans setted depending of the letters repetition in the Id.
+                I will check if my Id contain two times the same letter or three times and increment the variable depending on it
+            */
+            if (isThreeLetters === true) {
+                threeLetters ++
+            }
+            if(isTwoLetters === true){
+                twoLetters ++ 
+            }
+             
         })
+        
+        return threeLetters * twoLetters
 }

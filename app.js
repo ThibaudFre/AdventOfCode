@@ -20,6 +20,7 @@ import dayfunction_1_2_2017 from "./years/2017/day/day1.2.js";
 import dayfunction_1_2018 from "./years/2018/day/day1.js";
 import dayfunction_1_2_2018 from "./years/2018/day/day1.2.js";
 import dayfunction_2_2018 from "./years/2018/day/day2.js";
+import dayfunction_2_2_2018 from "./years/2018/day/day2.2.js";
 //2019
 import dayfunction_1_2019 from "./years/2019/day/day1.js";
 import dayfunction_1_2_2019 from "./years/2019/day/day1.2.js";
@@ -42,4 +43,4 @@ import dayfunction_2_2022 from "./years/2022/day/day2.js";
 import dayfunction_2_2_2022 from "./years/2022/day/day2.2.js";
 
 
-console.log(dayfunction_2_2018());
+console.log(dayfunction_2_2_2018());
