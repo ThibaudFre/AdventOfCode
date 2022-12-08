@@ -31,7 +31,7 @@ import path from 'node:path'
     What is the solution to your captcha?
 */
 
-export default () =>{
+export default () => {
     const digits = fs.readFileSync(path.join(process.cwd(), './years/2017/in/day1.txt'), { encoding: 'utf8' })
                  .split('').map(nb => parseInt(nb));
         
