@@ -1,5 +1,5 @@
 import fs from "node:fs"
-import path from "node:path"
+import path, { format } from "node:path"
 
 /*
     The link here: https://adventofcode.com/2017/day/2
@@ -27,40 +27,24 @@ import path from "node:path"
 */
 export default () => {
 
-    /*
-        you can uncomment the constant test above and "return test" below.
-        Be careful to comment the return before "fs.readFileSync...
-    */
-
-    fs.readFileSync(path.join(process.cwd(), "./years/2017/in/day2.txt"), { encoding: "utf8" })
-        .split("\r\n")
-        .reduce((acc, line) => {
-            //I return as acc the result
-            return line
-                .split('\t')
-                .map(nb => {
-                    const numbers = nb
-                                        .split("")
-                                        .map(nb => parseInt(nb))
-                    console.log(`\nnumbers are: ${numbers}\n`)
-                    return numbers.map((numberFirst, indexFirst) => {
-                        console.log(`numberFirst is: ${numberFirst}`)
-                        return numbers.map((numberSecond, indexSecond) => {
-                            console.log(`numberSecond is ${ numberSecond} `)
-                            if (indexFirst !== indexSecond) {
-                                console.log(`\nnumberFirst % numberSecond === 0 ? ${numberFirst % numberSecond}
-                                and numberSecond % numberFirst === 0  ? ${numberSecond % numberFirst}\n`)
-                                if (numberFirst % numberSecond === 0 && numberSecond % numberFirst === 0) {
-                                    console.log(`\n YES \n`)
-                                    //return acc += Math.max([numberFirst, numberSecond]) / Math.min([numberFirst, numberSecond])
-                                }
+        return fs.readFileSync(path.join(process.cwd(), "./years/2017/in/day2.txt"), {encoding: "utf8"})
+        /*return test*/ .split("\r\n")
+            .reduce((acc, line) => {
+                //I save the numbers of each line in an constant named numbers
+                const numbers = line
+                                    .split('\t')
+                                    .map(nb => parseInt(nb))
+                for (let i = 0; i < numbers.length; i++) {
+                    for (let j = 0; j < numbers.length; j++) {
+                        if (i !== j) {
+                            if (numbers[i] % numbers[j] === 0) {
+                                return acc += (numbers[i] / numbers[j]);
+                            } else if (numbers[j] % numbers[i] === 0) {
+                                return acc += (numbers[j] / numbers[i])
                             }
-                        })
-
-                    })
-                })
-            /* console.log(`numbers is ${numbers[1]}`)
-             */
-            
-        }, 0)
+                        }
+                    }
+                }               
+            },0)
 }
+
