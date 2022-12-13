@@ -33,7 +33,9 @@ export default () => {
         /*return test*/.split("\r\n")
         .reduce((totalPaper, boxDimensions) => {
             //for each boxDimensions I split the line and save the datas in the constants l, w, h
-            const [l, w, h] = boxDimensions.split("x");
+            const [l, w, h] = boxDimensions
+                                    .split("x")
+                                    .map(nb => parseInt(nb));
             //I add to the accumulator of reduce the result of wrappingPaperCalcul() with l,w,h constants as parameters
             return totalPaper += wrappingPaperCalcul(l,w,h);
         }, 0)
