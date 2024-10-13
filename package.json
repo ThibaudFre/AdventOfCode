@@ -5,9 +5,17 @@
     "main": "app.js",
     "type": "module",
     "scripts": {
-      "start": "node ./app.js",
-      "dev": "nodemon ./app.js"
+        "start": "node ./app.js",
+        "dev": "nodemon ./app.js"
     },
     "license": "ISC",
-    "keywords": []
-  }
+    "keywords": [],
+    "dependencies": {
+        "-": "^0.0.1",
+        "g": "^2.0.1",
+        "nodemon": "^3.1.0"
+    },
+    "devDependencies": {
+        "md5-hex": "^5.0.0"
+    }
+}

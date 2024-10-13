@@ -1,2 +1,2 @@
-import dayfunction from "./day/day1.2015.js";
+import dayfunction from "./2016/day/day1.1.js";
 console.log(dayfunction());
