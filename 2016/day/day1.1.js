@@ -14,7 +14,7 @@ import path from "path";
     There's no time to follow such ridiculous instructions on foot, though, so you take a moment and work out the destination.
     Given that you can only walk on the street grid of the city, how far is the shortest path to the destination?
 */
-
+//comment
 export default () => {
     const instructionList = fs.readFileSync(path.join(process.cwd(), './2016/in/day1.txt'), {encoding: 'utf-8'})
                                 .split(", ");
