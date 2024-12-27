@@ -10,7 +10,7 @@ test6 = "())" #-1
 
 
 
-def addSubtractFloor (actual_floor, bracket):
+def addSubtractFloor (actual_floor: int, bracket: str) -> int | str:
     if bracket == "(":
         return actual_floor + 1
     elif bracket == ")":
@@ -18,7 +18,7 @@ def addSubtractFloor (actual_floor, bracket):
     else:
         return "wrong input"
     
-def calculateFinalFloor(moves):
+def calculateFinalFloor(moves: list[str]) -> int:
     movesCopy = list(moves)
     actual_floor = 0
 
